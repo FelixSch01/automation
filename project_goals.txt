@@ -80,4 +80,9 @@
 			- take part in studies: no
 - vim config:
 - libreoffice config: colors, icons
-
+- have laptop battery charge to 90% max
+- scroll direction
+- tap to click
+- touchpad gestures
+- EFISTUB boot
+- https://wiki.archlinux.org/title/Security
