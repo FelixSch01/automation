@@ -1,2 +1,2 @@
 [manjaro-test]
-192.168.122.115 ansible_user=test ansible_ssh_password=test
+192.168.122.115 ansible_user=test ansible_ssh_password=test ansible_become_pass=test
