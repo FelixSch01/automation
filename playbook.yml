@@ -1,0 +1,14 @@
+---
+- name: "Install programs"
+  hosts: "all"
+  become: "yes"
+  tasks:
+    - name: "Install flatpak"
+      pacman:
+        name: "flatpak"
+        state: "present"
+    - name: "Install the firefox flatpak"
+      flatpak:
+        name: "org.mozilla.firefox"
+        state: "present"
+
