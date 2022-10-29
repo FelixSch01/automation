@@ -1,14 +1,23 @@
 ---
-- name: "Install programs"
-  hosts: "all"
-  become: "yes"
+- name: Install programs
+  hosts: all
+  become: yes
   tasks:
-    - name: "Install flatpak"
+    - name: Install flatpak
       pacman:
-        name: "flatpak"
-        state: "present"
-    - name: "Install the firefox flatpak"
+        name: flatpak
+        state: present
+    - name: Install flatpaks
       flatpak:
-        name: "org.mozilla.firefox"
-        state: "present"
+        name: Install firefox
+          - org.mozilla.firefox
+          - com.microsoft.Teams
+          - com.github.micahflee.torbrowser-launcher
+          - md.obsidian.Obsidian
+          - org.libreoffice.LibreOffice
+          - org.videolan.VLC
+          - org.telegram.desktop
+          - com.spotify.Client
+          - com.discordapp.Discord
+        state: present
 
