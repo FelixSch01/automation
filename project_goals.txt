@@ -1,6 +1,6 @@
 x use ntp: install ntp, enable ntpd
-- set timezone: ln -sf /usr/share/zoneinfo/Europe/Vienna /etc/localtime
-- hwclock --systohc
+x set timezone: ln -sf /usr/share/zoneinfo/Europe/Vienna /etc/localtime
+x hwclock --systohc
 - set locale:
 	/etc/locale.gen:  en_US.UTF-8 UTF-8
 	/etc/locale.conf: LANG=en_US.UTF-8

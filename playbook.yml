@@ -1,5 +1,5 @@
 ---
-- name: "Ensure programs are installed and up to date"
+- name: "Setup workstation for personal/school use"
   hosts: all
   become: yes
   tasks:
@@ -48,12 +48,13 @@
             #- com.jetbrains.IntelliJ-IDEA-Ultimate
           - com.github.xournalpp.xournalpp
         state: present
-- name: "Ensure services are properly configured"
-  hosts: all
-  become: yes
-  tasks:
     - name: "Ensure services are enabled and started"
       service:
         name: ntpd
         state: started
         enabled: yes
+    - name: "Ensure timezone and hwclock are set correctly"
+      timezone:
+        name: "Europe/Vienna"
+        hwclock: "UTC"
+
