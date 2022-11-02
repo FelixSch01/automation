@@ -1,23 +1,59 @@
 ---
-- name: Install programs
+- name: "Ensure programs are installed and up to date"
   hosts: all
   become: yes
   tasks:
-    - name: Install flatpak
+    - name: "Update existing pacman packages"
       pacman:
-        name: flatpak
-        state: present
-    - name: Install flatpaks
+        update_cache: true
+        upgrade: true
+    - name: "Ensure pacman packages are installed"
+      pacman:
+        update_cache: true
+        name:
+          - flatpak
+          - base
+          - base-devel
+          - git
+          - vim
+          - neofetch
+          - lolcat 
+          - plasma-meta
+          - zsh
+          - zsh-completions
+          - ntp
+          - ark
+          - okular
+          - dolphin
+        state: latest
+    - name: "Ensure flatpak applications are installed"
       flatpak:
-        name: Install firefox
+        name:
           - org.mozilla.firefox
+          - org.texstudio.TeXstudio
           - com.microsoft.Teams
           - com.github.micahflee.torbrowser-launcher
+          - org.geogebra.GeoGebra
+          - com.jgraph.drawio.desktop
           - md.obsidian.Obsidian
           - org.libreoffice.LibreOffice
           - org.videolan.VLC
           - org.telegram.desktop
           - com.spotify.Client
           - com.discordapp.Discord
+          - net.ankiweb.Anki
+          - com.nextcloud.desktopclient.nextcloud
+          - org.keepassxc.KeePassXC
+            # application might be broken - doesn't work manually either
+            #- com.jetbrains.IntelliJ-IDEA-Ultimate
+          - com.github.xournalpp.xournalpp
         state: present
-
+- name: "Ensure services are properly configured"
+  hosts: all
+  become: yes
+  tasks:
+    - name: "Ensure services are enabled and started"
+      service:
+        name: ntpd
+        state: started
+        enabled: yes
