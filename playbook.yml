@@ -67,13 +67,29 @@
         - {locale: "en_US.UTF-8"}
         - {locale: "en_DK.UTF-8"}
 
+    - block:      
+      - name: "Check whether working files exist"
+        stat:
+          path: "{{ item.path }}"
+        loop:
+          - {path: "/etc/locale.conf"}
+          - {path: "/etc/vconsole.conf"}
+        register: file
+
+      - name: "Create files as needed"
+        file:
+          path: "{{ item.stat.path }}"
+          state: touch
+        loop: "{{ file.results }}"
+        changed_when: not "{{ item.stat.exists }}"
+
     - name: "Ensure locale variables are set correctly"
       lineinfile:
         path: "/etc/locale.conf"
-        regexp: "{{ item.key }}=([^\n]+)"
+        regexp: "{{ item.key }}=([^\\n]*)"
         line: "{{ item.key }}={{ item.value }}"
         state: present
-        backup: true
+        backup: false
       loop:
         # Uncomment and set as needed
         # 
@@ -108,7 +124,12 @@
     - name: "Ensure console keyboard layout is set correctly"
       lineinfile:
         path: "/etc/vconsole.conf"
-        regexp: "KEYMAP=([^\n]+)"
+        regexp: "KEYMAP=[^\\n]*"
         line: "KEYMAP=de-latin1-nodeadkeys"
         state: present
-        backup: true
+        backup: false 
+
+    - name: "Ensure hostname is set correctly"
+      copy:
+        dest: "/etc/hostname"
+        content: "automated-pc" # TODO use variable
