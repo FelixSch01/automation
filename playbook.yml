@@ -58,52 +58,57 @@
         name: "Europe/Vienna"
         hwclock: "UTC"
 
-# begin: source=https://serverfault.com/questions/959026/how-do-i-generate-and-set-the-locale-using-ansible, 2022-11-02 (edited)
-    - name: "Ensure localisation files for 'de_AT.UTF-8' are available"
+    - name: "Ensure localisation files are generated"
       locale_gen:
-        name: "de_AT.UTF-8"
+        name: "{{ item.locale }}"
         state: present
+      loop: 
+        - {locale: "de_AT.UTF-8"}
+        - {locale: "en_US.UTF-8"}
+        - {locale: "en_DK.UTF-8"}
 
-    - name: "Ensure localisation files for 'en_US.UTF-8' are available"
-      locale_gen:
-        name: "en_US.UTF-8"
-        state: present
-
-    - name: "Ensure localisation files for 'en_DK.UTF-8' are available"
-      locale_gen:
-        name: "en_DK.UTF-8"
-        state: present
-
-    - name: "Get current locale and language configuration"
-      command: "localectl status"
-      register: locale_status
-      changed_when: false
-
-    - name: "Parse 'LANG' from current locale and language configuration"
-      set_fact:
-        locale_lang: "{{ locale_status.stdout | regex_search('LANG=([^\n]+)', '\\1') | first }}"
-
-    - name: "Parse 'LANGUAGE' from current locale and language configuration"
-      set_fact:
-        locale_language: "{{ locale_status.stdout | regex_search('LANGUAGE=([^\n]+)', '\\1') | default([locale_lang], true) | first }}"
-
-    - name: "Configure locale to 'de_AT.UTF-8' and language to 'en_US.UTF-8'"
-      command: "localectl set-locale LANG=de_AT.UTF-8 LANGUAGE=en_US.UTF-8"
-      changed_when: locale_lang != "de_AT.UTF-8" or locale_language != "en_US.UTF-8"
-# end: source=https://serverfault.com/questions/959026/how-do-i-generate-and-set-the-locale-using-ansible, 2022-11-02 (edited)
-
-    - name: "Parse 'VC Keymap' from current locale and language configuration"
-      set_fact:
-        vc_keymap: "{{ locale_status.stdout | regex_search('VC Keymap: ([^\n]+)', '\\1') | first }}"
-
-    - name: "Configure 'VC Keymap' to 'de-latin1-nodeadkeys'"
-      command: "localectl set-keymap de-latin1-nodeadkeys"
-      changed_when: vc_keymap != "de-latin1-nodeadkeys"
-
-    # source for ISO8601: https://wiki.archlinux.org/title/Locale#LC_TIME:_date_and_time_format
-    - name: "Ensure time format is set to ISO8601"
+    - name: "Ensure locale variables are set correctly"
       lineinfile:
-        path: /etc/locale.conf
-        regexp: "LC_TIME=(^\\n)"
-        line: "LC_TIME=en_DK.UTF-8"
+        path: "/etc/locale.conf"
+        regexp: "{{ item.key }}=([^\n]+)"
+        line: "{{ item.key }}={{ item.value }}"
+        state: present
+        backup: true
+      loop:
+        # Uncomment and set as needed
+        # 
+        # Listed in override priority order
+        # (see: https://www.gnu.org/software/gettext/manual/gettext.html#Locale-Environment-Variables)
+        #
+        # 1.
+        #- {key: "LANGUAGE", value: ""}
+        #
+        # 2.
+        #- {key: "LC_ALL", value: ""}
+        #
+        # 3.
+        #- {key: "LC_CTYPE", value: "en_US.UTF-8"}
+        - {key: "LC_NUMERIC", value: "en_US.UTF-8"}
+        # ISO8601 time format
+        # (see: https://wiki.archlinux.org/title/Locale#LC_TIME:_date_and_time_format)
+        - {key: "LC_TIME", value: "en_DK.UTF-8"}
+        #- {key: "LC_COLLATE", value: ""}
+        #- {key: "LC_MONETARY", value: ""}
+        - {key: "LC_MESSAGES", value: "en_US.UTF-8"}
+        #- {key: "LC_PAPER", value: ""}
+        #- {key: "LC_NAME", value: ""}
+        #- {key: "LC_ADDRESS", value: ""}
+        #- {key: "LC_TELEPHONE", value: ""}
+        #- {key: "LC_MEASUREMENT", value: ""}
+        #- {key: "LC_IDENTIFICATION", value: ""}
+        #
+        # 4.
+        - {key: "LANG", value: "de_AT.UTF-8"}
+
+    - name: "Ensure console keyboard layout is set correctly"
+      lineinfile:
+        path: "/etc/vconsole.conf"
+        regexp: "KEYMAP=([^\n]+)"
+        line: "KEYMAP=de-latin1-nodeadkeys"
+        state: present
         backup: true
