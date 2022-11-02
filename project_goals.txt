@@ -1,4 +1,4 @@
-- use ntp: timedatectl set-ntp true
+x use ntp: install ntp, enable ntpd
 - set timezone: ln -sf /usr/share/zoneinfo/Europe/Vienna /etc/localtime
 - hwclock --systohc
 - set locale:
@@ -10,25 +10,32 @@
 - show colors in pacman and enable pac man: /etc/pacman.conf Color, ILoveCandy
 - add user 'felix': useradd -m felix
 - add user 'felix' to sudoers: felix ALL=(ALL) ALL
-- enable insults in sudo: Defaults insulsts
-- install the following packages (as flatpak?):
-	> base
-	> base-devel
-	> vim
+- enable insults in sudo: Defaults insults
+- install the following packages (GUI stuff as flatpak, if available):
+x	> base
+x	> base-devel
+x	> vim
 	> intel-ucode
-	> plasma
-	> zsh
-	> zsh-completions
-	> firefox
-	> neofetch
-	> lolcat
-	> git
-	> libreoffice-fresh
-	> keepassxc
+x	> plasma
+x	> zsh
+x	> zsh-completions
+x	> firefox
+x	> neofetch
+x	> lolcat
+x	> git
+x	> libreoffice-fresh
+x	> keepassxc
 	> veracrypt
-	> tor browser
-	> anki
-	> jetbrains-toolbox
+x	> tor browser
+x	> anki
+x	> intellij idea ultimate
+x	> discord
+x	> telegram-desktop
+x	> ms teams
+x	> spotify-desktop
+x	> obsidian
+x	> xournal
+x	> vlc
 	> ...
 - set x11 keymap: localectl set-x11-keymap de
 - change default shell to zshell: chsh /bin/zsh
