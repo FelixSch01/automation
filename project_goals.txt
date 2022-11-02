@@ -43,23 +43,26 @@ x	> vlc
 - change omz theme: ~/.zshrc/ZSH_THEME="agnoster"
 - kde plasma theming and ricing
 	> wallpaper
+	> clock applet layout and format
+	> pinned programs on taskbar
 	> workspace theme
 	> colors
 	> icons
 	> application style
 	> startup and shutdown
+	> no timeout when pressing shutdown
 	> input devices
 	> regional settings
 	> konsole profile
 - git:
 	> set global email
 	> set global name
-- nextcloud:
 - ssh key?
+- nextcloud:
 	> mount spengergasse drive
 	> mount my own nextcloud drive
 - grub:
-	> boot timer to 0 or 1 second/s
+	> boot timer to 0 to 5 second/s
 - firefox:
 	> addons: - canvas blocker
 		  - cookie autodelete
@@ -87,7 +90,7 @@ x	> vlc
 			- take part in studies: no
 - vim config:
 - libreoffice config: colors, icons
-- have laptop battery charge to 90% max
+- have laptop battery charge between 10% and 90%
 - scroll direction
 - tap to click
 - touchpad gestures
