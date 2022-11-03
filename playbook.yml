@@ -81,7 +81,7 @@
           path: "{{ item.stat.path }}"
           state: touch
         loop: "{{ file.results }}"
-        changed_when: not "{{ item.stat.exists }}"
+        changed_when: not item.stat.exists
 
     - name: "Ensure locale variables are set correctly"
       lineinfile:
@@ -133,3 +133,16 @@
       copy:
         dest: "/etc/hostname"
         content: "automated-pc" # TODO use variable
+
+    - name: "Ensure users are configured"
+      user:
+        name: "felixsch01"
+        password: "test" # TODO use variable outside git # TODO encrypt password
+        update_password: always
+        comment: "Felix Schmölzer"
+        shell: "/bin/zsh"
+        group: "wheel"
+        home: "/home/felixsch01/"
+        create_home: true
+        state: present
+        
