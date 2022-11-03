@@ -3,7 +3,7 @@ x set timezone: ln -sf /usr/share/zoneinfo/Europe/Vienna /etc/localtime
 x hwclock --systohc
 x set locale: LANG=de_AT.UTF-8 LANGUAGE=en_US.UTF-8
 x set console keyboard layout: /etc/vconsole.conf: KEYMAP=de-latin1-nodeadkeys
-- set hostname: /etc/hostname: <HOSTNAME>
+x set hostname: /etc/hostname: <HOSTNAME>
 - set loopback adresses: /etc/hosts: 127.0.0.1 localhost ::1 localhost
 - show colors in pacman and enable pac man: /etc/pacman.conf Color, ILoveCandy
 - add user 'felix': useradd -m felix
