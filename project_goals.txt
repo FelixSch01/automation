@@ -6,7 +6,7 @@ x set console keyboard layout: /etc/vconsole.conf: KEYMAP=de-latin1-nodeadkeys
 x set hostname: /etc/hostname: <HOSTNAME>
 - set loopback adresses: /etc/hosts: 127.0.0.1 localhost ::1 localhost
 - show colors in pacman and enable pac man: /etc/pacman.conf Color, ILoveCandy
-- add user 'felix': useradd -m felix
+x add user 'felix' with home directory
 - add user 'felix' to sudoers: felix ALL=(ALL) ALL
 - enable insults in sudo: Defaults insults
 - install the following packages (GUI stuff as flatpak, if available):
@@ -36,7 +36,7 @@ x	> xournal
 x	> vlc
 	> ...
 - set x11 keymap: localectl set-x11-keymap de
-- change default shell to zshell: chsh /bin/zsh
+x change default shell to zshell: chsh /bin/zsh
 - install oh-my-zsh: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 - change omz theme: ~/.zshrc/ZSH_THEME="agnoster"
 - kde plasma theming and ricing
