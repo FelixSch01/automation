@@ -16,6 +16,7 @@
           - base-devel
           - git
           - vim
+          - sudo
           - neofetch
           - lolcat 
           - plasma-meta
@@ -166,3 +167,18 @@
         line: "{{ item }}"
         state: present
       loop: ["Color", "ILoveCandy"]
+
+    - name: "Ensure sudo is configured"
+      lineinfile:
+        path: "/etc/sudoers"
+        regexp: "[^\\n.]*{{ item }}[^\\n.]*"
+        line: "{{ item }}"
+        state: present
+        validate: "visudo -c %s"  
+      loop:
+        ["Defaults insults",
+        "Defaults targetpw",
+        "%wheel ALL=(ALL:ALL) ALL",
+        "Defaults env_reset",
+        "Defaults editor=/usr/bin/vim, !env_editor"]
+
