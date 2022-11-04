@@ -1,15 +1,11 @@
 - set loopback adresses: /etc/hosts: 127.0.0.1 localhost ::1 localhost
-- show colors in pacman and enable pac man: /etc/pacman.conf Color, ILoveCandy
 - add user 'felix' to sudoers: felix ALL=(ALL) ALL
 - enable insults in sudo: Defaults insults
 - install the following packages (GUI stuff as flatpak, if available):
 	> intel-ucode
 	> veracrypt
-	> nftables
-	> firewalld
 	> ...
 - set x11 keymap: localectl set-x11-keymap de
-- configure firewall
 - install oh-my-zsh: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 - change omz theme: ~/.zshrc/ZSH_THEME="agnoster"
 - kde plasma theming and ricing
@@ -25,9 +21,6 @@
 	> input devices
 	> regional settings
 	> konsole profile
-- git:
-	> set global email
-	> set global name
 - ssh key?
 - nextcloud:
 	> mount spengergasse drive
@@ -67,3 +60,15 @@
 - touchpad gestures
 - EFISTUB boot
 - https://wiki.archlinux.org/title/Security
+- https://wiki.archlinux.org/title/Unified_kernel_image
+- https://wiki.archlinux.org/title/Self-encrypting_drives
+- Encrypt DNS traffic: https://wiki.archlinux.org/title/Domain_name_resolution#Privacy_and_security
+- https://wiki.archlinux.org/title/Microcode
+- https://wiki.archlinux.org/title/Power_management#Power_management_with_systemd
+- https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate
+- https://wiki.archlinux.org/title/CPU_frequency_scaling
+- https://wiki.archlinux.org/title/Kernel_parameters
+- https://wiki.archlinux.org/title/Sysctl#TCP/IP_stack_hardening
+- https://wiki.archlinux.org/title/Category:Printers
+- https://wiki.archlinux.org/title/Improving_performance
+- https://wiki.archlinux.org/title/Reflector
