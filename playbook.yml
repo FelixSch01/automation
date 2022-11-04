@@ -94,7 +94,6 @@
         regexp: "{{ item.key }}=([^\\n]*)"
         line: "{{ item.key }}={{ item.value }}"
         state: present
-        backup: no
       loop:
         # Uncomment and set as needed
         # 
@@ -132,7 +131,6 @@
         regexp: "KEYMAP=[^\\n]*"
         line: "KEYMAP=de-latin1-nodeadkeys"
         state: present
-        backup: no
 
     - name: "Ensure hostname is configured"
       copy:
@@ -167,5 +165,4 @@
         regexp: "[^\\n.]*{{ item }}[^\\n.]*"
         line: "{{ item }}"
         state: present
-        backup: no
       loop: ["Color", "ILoveCandy"]
