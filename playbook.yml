@@ -160,3 +160,12 @@
         - {name: "user.name", value: "Felix Schmölzer", scope: "global"}
         - {name: "user.email", value: "felix.schmoelzer1@gmail.com", scope: "global"}
 
+    - name: "Ensure pacman is configured"
+      lineinfile:
+        path: "/etc/pacman.conf"
+        insertafter: "\\[options\\]"
+        regexp: "[^\\n.]*{{ item }}[^\\n.]*"
+        line: "{{ item }}"
+        state: present
+        backup: no
+      loop: ["Color", "ILoveCandy"]
