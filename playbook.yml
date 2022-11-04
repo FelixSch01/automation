@@ -145,4 +145,13 @@
         home: "/home/felixsch01/"
         create_home: true
         state: present
-        
+    
+    - name: "Ensure git is configured correctly"
+      git_config:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+        scope: "{{ item.scope }}"
+      loop:
+        - {name: "user.name", value: "Felix Schmölzer", scope: "global"}
+        - {name: "user.email", value: "felix.schmoelzer1@gmail.com", scope: "global"}
+
