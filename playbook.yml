@@ -25,6 +25,8 @@
           - ark
           - okular
           - dolphin
+          - nftables
+          - firewalld
         state: latest
     - name: "Ensure flatpak applications are installed"
       flatpak:
@@ -50,9 +52,12 @@
         state: present
     - name: "Ensure services are enabled and started"
       service:
-        name: ntpd
-        state: started
-        enabled: yes
+        name: "{{ item.name }}"
+        state: "{{ item.state }}"
+        enabled: "{{ item.enabled }}"
+      loop:
+        - { name: "ntpd", state: "started", enabled: true }
+        - { name: "firewalld", state: "started", enabled: true }
     - name: "Ensure timezone and hwclock are set correctly"
       timezone:
         name: "Europe/Vienna"
