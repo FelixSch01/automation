@@ -5,11 +5,11 @@
   tasks:
     - name: "Update existing pacman packages"
       pacman:
-        update_cache: true
-        upgrade: true
+        update_cache: yes
+        upgrade: yes
     - name: "Ensure pacman packages are installed"
       pacman:
-        update_cache: true
+        update_cache: yes
         name:
           - flatpak
           - base
@@ -50,15 +50,15 @@
             #- com.jetbrains.IntelliJ-IDEA-Ultimate
           - com.github.xournalpp.xournalpp
         state: present
-    - name: "Ensure services are enabled and started"
+    - name: "Ensure services are configured"
       service:
         name: "{{ item.name }}"
         state: "{{ item.state }}"
         enabled: "{{ item.enabled }}"
       loop:
-        - { name: "ntpd", state: "started", enabled: true }
-        - { name: "firewalld", state: "started", enabled: true }
-    - name: "Ensure timezone and hwclock are set correctly"
+        - { name: "ntpd", state: "started", enabled: yes }
+        - { name: "firewalld", state: "started", enabled: yes }
+    - name: "Ensure timezone and hwclock are configured"
       timezone:
         name: "Europe/Vienna"
         hwclock: "UTC"
@@ -88,13 +88,13 @@
         loop: "{{ file.results }}"
         changed_when: not item.stat.exists
 
-    - name: "Ensure locale variables are set correctly"
+    - name: "Ensure locale variables are configured"
       lineinfile:
         path: "/etc/locale.conf"
         regexp: "{{ item.key }}=([^\\n]*)"
         line: "{{ item.key }}={{ item.value }}"
         state: present
-        backup: false
+        backup: no
       loop:
         # Uncomment and set as needed
         # 
@@ -126,15 +126,15 @@
         # 4.
         - {key: "LANG", value: "de_AT.UTF-8"}
 
-    - name: "Ensure console keyboard layout is set correctly"
+    - name: "Ensure console keyboard layout is configured"
       lineinfile:
         path: "/etc/vconsole.conf"
         regexp: "KEYMAP=[^\\n]*"
         line: "KEYMAP=de-latin1-nodeadkeys"
         state: present
-        backup: false 
+        backup: no
 
-    - name: "Ensure hostname is set correctly"
+    - name: "Ensure hostname is configured"
       copy:
         dest: "/etc/hostname"
         content: "automated-pc" # TODO use variable
@@ -148,10 +148,10 @@
         shell: "/bin/zsh"
         group: "wheel"
         home: "/home/felixsch01/"
-        create_home: true
+        create_home: yes
         state: present
     
-    - name: "Ensure git is configured correctly"
+    - name: "Ensure git is configured"
       git_config:
         name: "{{ item.name }}"
         value: "{{ item.value }}"
