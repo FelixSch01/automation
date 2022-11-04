@@ -5,8 +5,11 @@
 - install the following packages (GUI stuff as flatpak, if available):
 	> intel-ucode
 	> veracrypt
+	> nftables
+	> firewalld
 	> ...
 - set x11 keymap: localectl set-x11-keymap de
+- configure firewall
 - install oh-my-zsh: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 - change omz theme: ~/.zshrc/ZSH_THEME="agnoster"
 - kde plasma theming and ricing
